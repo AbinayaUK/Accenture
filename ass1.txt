@@ -7,11 +7,32 @@ insert into employee values(40,'Abhishek',5000,2);
 insert into employee values(50,'Divya',6000,2);
 insert into employee values(60,'Chitra',7000,3);
 
+mysql> select * from employee;
++--------+----------+---------+---------+
+| emp_id | emp_name | emp_sal | dept_id |
++--------+----------+---------+---------+
+|     10 | Vivek    |    2000 |       1 |
+|     20 | Raj      |    3000 |       1 |
+|     30 | Vinoth   |    4000 |       1 |
+|     40 | Abhishek |    5000 |       2 |
+|     50 | Dhivya   |    6000 |       2 |
+|     60 | Chitra   |    7000 |       3 |
++--------+----------+---------+---------+
+mysql> select * from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | IT        |
+|       2 | admin     |
+|       3 | HR        |
++---------+-----------+
+3 rows in set (0.00 sec)
+
 
 1)Fetch all the Deptid,DeptName from department table & Corresponding 
 Department salary using Employee  Table. If Any department is not 
 available in employee table then assign salary as 0.
-Note: Don’t use sub quesry or in or not in
+Note: Donâ€™t use sub quesry or in or not in
 
 
 mysql> select d.dept_id,d.dept_name,
@@ -65,7 +86,7 @@ mysql> select d.Dept_id ,d.Dept_Name,coalesce(sum(emp_sal),0) as 'Sum_Emp_SAL' f
 dept id from Employee table & Corresponding Department name using department 
 Table. If Any department is not available in department table then assign 
 departname as 'Others'
-Note: Don’t use sub quesry or in or not in
+Note: Donâ€™t use sub quesry or in or not in
 
 
 mysql> select e.dept_id,
@@ -169,7 +190,7 @@ insert into employee2 values(6,'Divyashree');
 5)Fetch all the emp_id & derv_Emp_Name 
 Derv_emp_name will be from 4th character till end of the chanracter 
 from emp_name
-Note: Don’t use regular expression
+Note: Donâ€™t use regular expression
 
 mysql> select emp_id,emp_name, substring(emp_name,4,20) as derv_emp_name 
 from employee2;
@@ -190,7 +211,7 @@ from employee2;
 6)Fetch all the emp_id & derv_Emp_Name 
 Derv_emp_name will be from first occurance of 'h' till  
 end of the chanracter from emp_name
-Note: Don’t use regular expression
+Note: Donâ€™t use regular expression
 
 mysql> select emp_id Emp_ID,substring(emp_name,position('h' in emp_name)+1)
     -> Emp_name from employee2;
@@ -224,7 +245,7 @@ mysql> select * from (select emp_id,emp_name,salary, dense_rank()
 1 row in set (0.00 sec)
 
 8)Fetch emp_id,Emp_name & Salary who is getting top 3 salary
-Note : Don’t use top 
+Note : Donâ€™t use top 
 
 mysql> select * from (select emp_id,emp_name,salary, dense_rank() 
 over(order by salary desc)as a from employee1) b where a<=3;
