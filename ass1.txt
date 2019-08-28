@@ -162,16 +162,16 @@ salary who is reporting to that manager
 Note: Don't use  between
 
 
-mysql> select e.emp_id as manager_id,e.emp_name as manager_name,sum(e.salary)as sum from employee1 e
+mysql> select e.emp_id as manager_id,e.emp_name as manager_name,sum(ee.salary)as sum from employee1 e
     -> join employee1 ee on e.emp_id=ee.manager_id group by e.emp_id order by e.emp_id;
 +------------+--------------+-------+
 | manager_id | manager_name | sum   |
 +------------+--------------+-------+
-|          1 | vivek        | 22000 |
-|          2 | raj          |  2000 |
-|          3 | vinoth       |  9000 |
-|          4 | abhishek     |  5000 |
-|          8 | aarthi       |  2700 |
+|          1 | vivek        |  5000 |
+|          2 | raj          |  5000 |
+|          3 | vinoth       | 10850 |
+|          4 | abhishek     |  2700 |
+|          8 | aarthi       | 11000 |
 +------------+--------------+-------+
 5 rows in set (0.00 sec)
 
