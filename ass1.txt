@@ -357,3 +357,6 @@ mysql> select * from employee4 where emp_name like '%b%' and emp_name like '%h%'
 |      3 | Abhishek | HR        |   4800 |
 +--------+----------+-----------+--------+
 1 row in set (0.00 sec)
+
+
+
