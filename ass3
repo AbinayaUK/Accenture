@@ -1,0 +1,111 @@
+)
+
+Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,EMP_DESC_CNT,EMP_PLACE_CNT
+
+EMP_DESC_CNT --- > No Of Employess Each Designation
+EMP_PLACE_CNT ---> No Of Employess Each Place
+
+List All the Employees in The employess
+
+If there is null in Place or Designation show as 'OTHERS'
+
+
+
+
+
+select e.emp_id,e.emp_name,
+count(*) over(partition by d.desc_id) as emp_desc_cnt,
+count(*) over(partition by pl.place_id) as emp_place_cnt,
+
+case when desc_name is null 
+then 'others'
+else desc_name
+end as desc_name1,
+
+case when place_desc is null 
+then 'others'
+else place_desc
+end as place_desc1
+
+
+from employee e left join designation d
+on e.desc_id=d.desc_id
+left join place pl on pl.place_id=e.place_id order by e.emp_id;
+
+
++--------+---------------+--------------+---------------+------------+-------------+
+| emp_id | emp_name      | emp_desc_cnt | emp_place_cnt | desc_name1 | place_desc1 |
++--------+---------------+--------------+---------------+------------+-------------+
+|      1 | Vijaykumar    |            3 |             2 | ASE        | Chennai     |
+|      2 | Raja          |            3 |             3 | SE         | Hyderabad   |
+|      3 | Abhisheksingh |            3 |             1 | ASE        | Mexico      |
+|      4 | Santosh       |            2 |             2 | SSE        | Bangalore   |
+|      5 | Kribakaran    |            3 |             3 | SE         | Hyderabad   |
+|      6 | Divya         |            1 |             2 | TL         | Newyork     |
+|      7 | Suganya       |            3 |             3 | ASE        | Hyderabad   |
+|      8 | Shalini       |            3 |             2 | SE         | Bangalore   |
+|      9 | Avantika      |            2 |             2 | SSE        | Chennai     |
+|     10 | Ajay          |            1 |             5 | AM         | others      |
+|     11 | Tamilselvan   |            5 |             5 | others     | others      |
+|     12 | Vinodha       |            5 |             5 | others     | others      |
+|     13 | Karthick      |            5 |             2 | others     | Newyork     |
+|     14 | Sanjay        |            5 |             5 | others     | others      |
+|     15 | Meera         |            5 |             5 | others     | others      |
++--------+---------------+--------------+---------------+------------+-------------+
+15 rows in set (0.00 sec)
+
+
+
+
+2)Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
+
+List All the Employees who is working in 'Data' or 'Cloud' project. 
+
+Note: Find Respective  keyword in project name
+
+
+ select e.emp_id,e.emp_name,
+
+case when d.desc_name is null
+then 'others'
+else desc_name
+end as desc_name1,
+
+case when pl.place_desc is null
+then 'others'
+else place_desc
+end as place_desc1,
+
+case when p.proj_name is null
+then 'others'
+else proj_name
+end as project_name
+
+
+from employee e left join designation d
+on e.desc_id=d.desc_id
+left join place pl 
+on e.place_id=pl.place_id
+left join project1 p
+on e.proj_id=p.proj_id
+where p.proj_name like '%Data%' or p.proj_name like '%Cloud%' order by e.emp_id;
+
+
++--------+---------------+------------+-------------+------------------------+
+| emp_id | emp_name      | desc_name1 | place_desc1 | project_name           |
++--------+---------------+------------+-------------+------------------------+
+|      1 | Vijaykumar    | ASE        | Chennai     | Pepsi Data Mart        |
+|      3 | Abhisheksingh | ASE        | Mexico      | Amazon Cloud Logistics |
+|      4 | Santosh       | SSE        | Bangalore   | Neon Data & Analytics  |
+|      5 | Kribakaran    | SE         | Hyderabad   | ASG Data Warehousing   |
+|      6 | Divya         | TL         | Newyork     | Pepsi Data Mart        |
+|      8 | Shalini       | SE         | Bangalore   | ASG Data Warehousing   |
+|      9 | Avantika      | SSE        | Chennai     | Amazon Cloud Logistics |
+|     13 | Karthick      | others     | Newyork     | ASG Data Warehousing   |
+|     14 | Sanjay        | others     | others      | Amazon Cloud Logistics |
++--------+---------------+------------+-------------+------------------------+
+9 rows in set (0.00 sec)
+
+
+
+3)
