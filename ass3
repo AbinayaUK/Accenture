@@ -1,4 +1,4 @@
-)
+1)
 
 Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,EMP_DESC_CNT,EMP_PLACE_CNT
 
@@ -8,9 +8,6 @@ EMP_PLACE_CNT ---> No Of Employess Each Place
 List All the Employees in The employess
 
 If there is null in Place or Designation show as 'OTHERS'
-
-
-
 
 
 select e.emp_id,e.emp_name,
@@ -57,11 +54,13 @@ left join place pl on pl.place_id=e.place_id order by e.emp_id;
 
 
 
-2)Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
+2)
+
+Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
 
 List All the Employees who is working in 'Data' or 'Cloud' project. 
 
-Note: Find Respective  keyword in project name
+Note: Find Respective  keyword in project name         //if only employees should be working is asked we shld use inner join//
 
 
  select e.emp_id,e.emp_name,
@@ -86,9 +85,9 @@ from employee e left join designation d
 on e.desc_id=d.desc_id
 left join place pl 
 on e.place_id=pl.place_id
-left join project1 p
+left join project1 p                 //inner join project1 p on e.proj_id=p.proj_id and (proj_name like any ('%data%','%cloud%'));             
 on e.proj_id=p.proj_id
-where p.proj_name like '%Data%' or p.proj_name like '%Cloud%' order by e.emp_id;
+where p.proj_name like '%Data%' or p.proj_name like '%Cloud%' order by e.emp_id;   //use 'like any' here//
 
 
 +--------+---------------+------------+-------------+------------------------+
@@ -108,18 +107,20 @@ where p.proj_name like '%Data%' or p.proj_name like '%Cloud%' order by e.emp_id;
 
 
 
-3)Fetch EMP_NAME,PLACE_DESC
+3)
+
+Fetch EMP_NAME,PLACE_DESC
 
 Show only employees working as higest grade in each place,  If two employees in same grade use minimum Project_id to pick one,
 
 Use DESC_ID, PLACE_ID & PROJECT_ID to define Grades "								
 
 
-mysql> select * from (
-    select EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME,dense_rank() over (partition by e.place_id order by e.desc_id desc,e.proj_id ) rn
-    from employee e  join designation d on e.desc_id=d.desc_id
-    join place p on e.place_id=p.place_id
-	join project1 pp on e.proj_id=pp.proj_id)a where rn=1;
+select * from (
+select EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME,dense_rank() over (partition by e.place_id order by e.desc_id desc,e.proj_id ) a
+from employee e  join designation d on e.desc_id=d.desc_id
+join place p on e.place_id=p.place_id
+join project1 pp on e.proj_id=pp.proj_id)a where a=1;
  
 +--------+---------------+-----------+------------+------------------------+----+
 | EMP_ID | EMP_NAME      | DESC_NAME | PLACE_DESC | PROJ_NAME              | rn |
@@ -138,15 +139,13 @@ mysql> select * from (
 
 Show Only the Priority Customer based on the Purchased Amount "				
 
+select sales_manager_name,cust_name from (
+select cust_name,s1.salesman_id,s1.sales_manager_id,s2.salesman_name sales_manager_name,purchased_amount,
+dense_rank() over (partition by s1.sales_manager_id order by purchased_amount desc) rn from customer c
+join salesman s1 on c.salesman_id=s1.salesman_id join salesman s2
+on s1.sales_manager_id=s2.salesman_id)sal
+where rn=1;
 
-	
-
-	 mysql> select sales_manager_name,cust_name from (
-     select cust_name,s1.salesman_id,s1.sales_manager_id,s2.salesman_name sales_manager_name,purchased_amount,
-     dense_rank() over (partition by s1.sales_manager_id order by purchased_amount desc) rn from customer c
-     join salesman s1 on c.salesman_id=s1.salesman_id join salesman s2
-     on s1.sales_manager_id=s2.salesman_id)sal
-     where rn=1;
 +--------------------+-----------+
 | sales_manager_name | cust_name |
 +--------------------+-----------+
@@ -162,8 +161,9 @@ Show Only the Priority Customer based on the Purchased Amount "
 	
 
 update salesman s
-inner join (select salesman_id,sum(purchased_amount) pa from customer group by  salesman_id) c on s.salesman_id=c.salesman_id and  monthly_target<pa
-set s.monthly_target=c.pa;
+inner join (select salesman_id,sum(purchased_amount) p from customer group by  salesman_id) c 
+on s.salesman_id=c.salesman_id and  monthly_target<p
+set s.monthly_target=c.p;
 
 mysql> select * from salesman;
 +-------------+---------------+-----------+------------------+----------------+
