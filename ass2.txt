@@ -1,4 +1,4 @@
-upsr
+
 
 create table employee(EMP_ID int,EMP_NAME varchar(30),DESC_ID int,PLACE_ID int,PROJ_ID int);
 insert into employee values(1,'Vijaykumar',10,1,3);
@@ -45,9 +45,9 @@ insert into project values(4,'Microsoft');
 insert into project values(5,'Amazon');
 insert into project values(10,'Flipkart');
 
-														QUESTION 1
+														
 
-"Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
+1)"Fetch EMP_ID,EMP_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
 
 List all the employees from the employee table 
 EMP_ID
@@ -67,8 +67,8 @@ mysql> select EMP_ID,EMP_NAME,
     ->      left join project pp on e.proj_id=pp.proj_id
     ->  order by emp_id;
 
-																	QUESTION 2
-"Fetch EMP_ID,EMP_NAME,PROJECT_ROLE
+																	
+2)"Fetch EMP_ID,EMP_NAME,PROJECT_ROLE
 
 List all the employees from the employee table 
 EMP_ID
@@ -105,8 +105,8 @@ mysql> select EMP_ID,EMP_NAME,
 |     15 | Meera         | SHADOW       |
 +--------+---------------+--------------+
 
-																QUESTION 3
-"Fetch DESC_NAME,PLACE_DESC,PROJ_NAME
+																
+3)"Fetch DESC_NAME,PLACE_DESC,PROJ_NAME
 
 List how mony employess are working as a DEVELOPER in respective PLACE and PROJECT. Also SHOW rest of count as OTHERS in all the fields and "	
 
@@ -136,9 +136,8 @@ left  join Project as pr  on
 +---------------+-----------------+----------------+-----------------+
 8 rows in set (0.00 sec)
 
-															QUESTION 4
 															
-"Fetch EMPLOYEE_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
+4)"Fetch EMPLOYEE_NAME,DESC_NAME,PLACE_DESC,PROJ_NAME
 
 Fetch all the Employee name, Designation , Place and project from respective tables if there is any null in respective fields then
  show it as OTHERS in those null Fields"								
@@ -188,7 +187,7 @@ right join project pp on e.proj_id=pp.proj_id where EMP_NAME is null;
 | others        | others    | others     | Flipkart  |
 +---------------+-----------+------------+-----------+
 18 rows in set (0.00 sec)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
  
 create table customer(Customer_id int,Cust_Name varchar(10),City varchar(10),Priority_num int,Salesman_id int,Purchased_Amount int);
 insert into customer values(10,'James','Chennai',1,1,10000);
@@ -237,8 +236,8 @@ mysql> select * from salesman;
 +-------------+---------------+-----------+------------------+----------------+
 6 rows in set (0.04 sec)
 
-														QUESTION 5
-"Fetch Salesman_Name, Cust_Name, Customer_city,Salesman_City
+														
+5)"Fetch Salesman_Name, Cust_Name, Customer_city,Salesman_City
 Show only the customer and salesman whole belong to the different City "				
 
 
@@ -251,8 +250,8 @@ mysql> select salesman_name,cust_name,c.city,s.city from customer c join salesma
 +---------------+-----------+---------+-----------+
 2 rows in set (0.00 sec)
 
-													QUESTION 6
-"Fetch Salesman_Name, City, Monthly_target, Amount_purchase_by_Customer 
+													
+6)"Fetch Salesman_Name, City, Monthly_target, Amount_purchase_by_Customer 
 
 Show only the Sales Man who achieved the monthly Target
 
@@ -271,9 +270,8 @@ amount_purchase_by_customer from customer c join salesman s on c.salesman_id=s.s
 +---------------+-----------+----------------+-----------------------------+
 4 rows in set (0.00 sec)
 
-												QUESTION 7
 
-"Fetch Cust_Name, City,Priority_num,Purchased_amount
+7)"Fetch Cust_Name, City,Priority_num,Purchased_amount
 
 Show only the Sales Man top two salesperson who purchased more in their respective priority
 
@@ -296,8 +294,8 @@ sales where ran in(1,2);
 +-----------+-----------+--------------+------------------+
 6 rows in set (0.00 sec)
 
-													QUESTION 8
-"Fetch Salesman_Name, City, Amount_purchase_by_Customer 
+												
+8)"Fetch Salesman_Name, City, Amount_purchase_by_Customer 
 
 Show only the Sales Man who  Amount_purchase_by_Customer is less than the avg monthly target of all customer
  
@@ -319,9 +317,9 @@ mysql> select salesman_name,s.city,monthly_target,ifnull(sum(purchased_amount),0
 +---------------+-----------+----------------+-----------------------------+
 5 rows in set (0.00 sec)
 
-													QUESTION 9
+												
 
-"Fetch  Sales_Manager_Name, Salesman_Name,Manager Monthly_target,  Amount_purchase_by_Customer 
+9)"Fetch  Sales_Manager_Name, Salesman_Name,Manager Monthly_target,  Amount_purchase_by_Customer 
 
 Show only the Sales Man who's manager is achieved the monthly Target based on his reportees purchase detail
 
@@ -472,8 +470,8 @@ mysql> select * from class;
 |        3 | 12th  |           371 | 2019-10-01 | 9999-12-31 |
 +----------+-------+---------------+------------+------------+
 9 rows in set (0.00 sec)
-													QUESTION 10
-"Fetch All Student_name,City_name,Class_Name
+													
+10)"Fetch All Student_name,City_name,Class_Name
 
 Show only the initial information of all the student in respective Field"				
 
@@ -493,9 +491,9 @@ mysql> select student_name,city_name,class_name from (
 +--------------+-----------+------------+
 6 rows in set (0.00 sec)
 
-											QUESTION 11
+										
 											
-"Fetch All Student_name,City_name,Class_Name,Classroom_num
+11)"Fetch All Student_name,City_name,Class_Name,Classroom_num
 
 Show only the information of all the student where stands as of today date"				
 
@@ -515,9 +513,9 @@ mysql> select student_name,city_name,class class_name,classroom_num from student
 | Vinoth       | Bangalore | 12th  |           360 |
 +--------------+-----------+-------+---------------+
 6 rows in set (0.01 sec)
-											QUESTION 12
 											
-"Fetch All Student_name,City_name
+											
+12)"Fetch All Student_name,City_name
 
 Show only the information of all the student who studied in Chennai or Classroom Number (301,310,320)"				
 
@@ -537,7 +535,7 @@ mysql> select distinct student_name,city_name from student s1 inner join student
 +--------------+-----------+
 6 rows in set (0.00 sec)
 
- -----------------------------------------------------------------------------------------------------------------------------------------------------------    
+ ---------------------------------------------------------------------------------------------------------------------------------------    
 
 create table customer1 (Customer_id int,Cust_Name varchar(40));
 insert into customer1 values(10,'JamesMartin');
@@ -549,8 +547,8 @@ insert into customer1 values(60,'AkilanBala');
 insert into customer1 values(70,'ArunKumar');
 insert into customer1 values(80,'Dineshkumar');
 
-													QUESTION 13
 													
+13)Show Customer name from 3rd character to last 3rd character												
 mysql> select substring(cust_name,3,length(cust_name)-4) cust_name from customer1;
 +--------------+
 | cust_name    |
@@ -566,8 +564,8 @@ mysql> select substring(cust_name,3,length(cust_name)-4) cust_name from customer
 +--------------+
 8 rows in set (0.00 sec)
 
-													QUESTION 14
 													
+14)Show Customer name who’s name contain 'A' or 'U' or 'R'													
 mysql> select cust_name from customer1 where cust_name like '%A%' and cust_name like '%U%' and cust_name like '%R%';
 +-------------+
 | cust_name   |
@@ -578,8 +576,12 @@ mysql> select cust_name from customer1 where cust_name like '%A%' and cust_name 
 +-------------+
 3 rows in set (0.00 sec)
 
-													QUESTION 15
-	
+													
+15)Show Customer name from 2nd occurance of "a" till last 2nd of character
+
+If there is no 2nd occurance populate 'No Second Occurance'
+
+
 mysql> select case when length(cust_name)>0 then cust_name else 'NO 2nd occurance' end as cust_name from 
 (select substring((substring(cust_name,1,length(cust_name)-1)),locate('a',cust_name,(locate('a',cust_name)+1))) cust_name from customer1)cust;
 
